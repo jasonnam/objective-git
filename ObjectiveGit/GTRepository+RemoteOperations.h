@@ -97,6 +97,20 @@ typedef NS_ENUM(NSInteger, GTFetchPruneOption) {
 /// will point to an error describing what happened).
 - (BOOL)pushBranches:(NSArray<GTBranch *> *)branches toRemote:(GTRemote *)remote withOptions:(nullable NSDictionary *)options error:(NSError **)error progress:(nullable void (^)(unsigned int current, unsigned int total, size_t bytes, BOOL *stop))progressBlock;
 
+/// Push an array of refspecs to a remote.
+///
+/// refspecs      - An array of refspecs to push. Must not be nil.
+/// remote        - The remote to push to. Must not be nil.
+/// options       - Options applied to the push operation. Can be NULL.
+///                 Recognized options are:
+///                 `GTRepositoryRemoteOptionsCredentialProvider`
+/// error         - The error if one occurred. Can be NULL.
+/// progressBlock - An optional callback for monitoring progress. May be NULL.
+///
+/// Returns YES if the push was successful, NO otherwise (and `error`, if provided,
+/// will point to an error describing what happened).
+- (BOOL)pushRefspecs:(NSArray *)refspecs toRemote:(GTRemote *)remote withOptions:(NSDictionary *)options error:(NSError **)error progress:(nullable void (^)(unsigned int current, unsigned int total, size_t bytes, BOOL *stop))progressBlock;
+
 /// Delete a remote branch
 ///
 /// branch        - The branch to push. Must not be nil.
