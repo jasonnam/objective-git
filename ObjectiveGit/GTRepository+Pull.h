@@ -32,6 +32,8 @@ typedef void (^GTRemoteFetchTransferProgressBlock)(const git_transfer_progress *
 /// will point to an error describing what happened).
 - (BOOL)pullBranch:(GTBranch *)branch fromRemote:(GTRemote *)remote withOptions:(nullable NSDictionary *)options error:(NSError **)error progress:(nullable GTRemoteFetchTransferProgressBlock)progressBlock;
 
+- (BOOL)pullBranch:(GTBranch *)branch fromRemote:(GTRemote *)remote signature:(GTSignature *)signature withOptions:(NSDictionary *)options error:(NSError **)error progress:(GTRemoteFetchTransferProgressBlock)progressBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

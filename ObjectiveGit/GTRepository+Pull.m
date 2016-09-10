@@ -21,6 +21,10 @@ NSString * const GTPullMergeConflictedFiles = @"GTPullMergeConflictedFiles";
 #pragma mark - Pull
 
 - (BOOL)pullBranch:(GTBranch *)branch fromRemote:(GTRemote *)remote withOptions:(NSDictionary *)options error:(NSError **)error progress:(GTRemoteFetchTransferProgressBlock)progressBlock {
+	return [self pullBranch:branch fromRemote:remote signature:self.userSignatureForNow withOptions:options error:error progress:progressBlock];
+}
+
+- (BOOL)pullBranch:(GTBranch *)branch fromRemote:(GTRemote *)remote signature:(GTSignature *)signature withOptions:(NSDictionary *)options error:(NSError **)error progress:(GTRemoteFetchTransferProgressBlock)progressBlock {
 	NSParameterAssert(branch != nil);
 	NSParameterAssert(remote != nil);
 
@@ -49,7 +53,7 @@ NSString * const GTPullMergeConflictedFiles = @"GTPullMergeConflictedFiles";
 		trackingBranch = branch;
 	}
 
-	return [repo mergeBranchIntoCurrentBranch:trackingBranch withError:error];
+	return [repo mergeBranchIntoCurrentBranch:trackingBranch signature:signature withError:error];
 }
 
 @end
