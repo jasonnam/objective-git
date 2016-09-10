@@ -115,8 +115,10 @@ int GTMergeHeadEntriesCallback(const git_oid *oid, void *payload) {
 		GTTree *localTree = localCommit.tree;
 		GTTree *remoteTree = remoteCommit.tree;
 
-		// TODO: Find common ancestor
-		GTTree *ancestorTree = nil;
+		GTTree *ancestorTree = [[self mergeBaseBetweenFirstOID:localCommit.OID secondOID:remoteCommit.OID error:error] tree];
+		if (!ancestorTree) {
+			return NO;
+		}
 
 		// Merge
 		GTIndex *index = [localTree merge:remoteTree ancestor:ancestorTree error:error];
