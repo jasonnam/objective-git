@@ -72,6 +72,10 @@ int GTMergeHeadEntriesCallback(const git_oid *oid, void *payload) {
 }
 
 - (BOOL)mergeBranchIntoCurrentBranch:(GTBranch *)branch withError:(NSError **)error {
+	return [self mergeBranchIntoCurrentBranch:branch signature:self.userSignatureForNow withError:error];
+}
+
+- (BOOL)mergeBranchIntoCurrentBranch:(GTBranch *)branch signature:(GTSignature *)signature withError:(NSError **)error {
 	// Check if merge is necessary
 	GTBranch *localBranch = [self currentBranchWithError:error];
 	if (!localBranch) {
@@ -161,7 +165,7 @@ int GTMergeHeadEntriesCallback(const git_oid *oid, void *payload) {
 		NSArray *parents = @[ localCommit, remoteCommit ];
 
 		// FIXME: This is stepping on the local tree
-		GTCommit *mergeCommit = [self createCommitWithTree:newTree  message:message parents:parents updatingReferenceNamed:localBranch.name error:error];
+		GTCommit *mergeCommit = [self createCommitWithTree:newTree message:message author:signature committer:signature parents:parents updatingReferenceNamed:localBranch.name error:error];
 		if (!mergeCommit) {
 			return NO;
 		}

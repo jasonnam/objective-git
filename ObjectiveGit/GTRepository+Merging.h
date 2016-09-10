@@ -52,6 +52,8 @@ typedef NS_OPTIONS(NSInteger, GTMergeAnalysis) {
 /// will point to an error describing what happened).
 - (BOOL)mergeBranchIntoCurrentBranch:(GTBranch *)fromBranch withError:(NSError **)error;
 
+- (BOOL)mergeBranchIntoCurrentBranch:(GTBranch *)branch signature:(GTSignature *)signature withError:(NSError **)error;
+
 /// Analyze which merge to perform.
 ///
 /// analysis   - The resulting analysis.
