@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class GTSignature;
+@class GTReference;
 @class GTReflogEntry;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,6 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The number of reflog entries.
 @property (nonatomic, readonly, assign) NSUInteger entryCount;
+
+/// Initializes the receiver with a reference. Designated initializer.
+///
+/// reference - The reference whose reflog is being represented. Cannot be nil.
+///
+/// Returns the initialized object.
+- (instancetype _Nullable)initWithReference:(GTReference * _Nonnull)reference NS_DESIGNATED_INITIALIZER;
 
 /// Writes a new entry to the reflog.
 ///
@@ -35,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///         than `entryCount`, it will assert.
 ///
 /// Returns the entry at that index or nil if not found.
-- (nullable GTReflogEntry *)entryAtIndex:(NSUInteger)index;
+- (GTReflogEntry * _Nullable)entryAtIndex:(NSUInteger)index;
 
 @end
 
